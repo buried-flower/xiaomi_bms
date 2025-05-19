@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mi_bms.mapper.BatteryMapper">
+  <resultMap id="BaseResultMap" type="org.example.mi_bms.entity.Battery">
+    <id column="battery_type" jdbcType="INTEGER" property="batteryType" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="update_time" jdbcType="DATE" property="updateTime" />
+    <result column="delete" jdbcType="INTEGER" property="delete" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from battery
+    where battery_type = #{batteryType,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.example.mi_bms.entity.Battery">
+    insert into battery (battery_type, `name`, create_time, 
+      update_time, `delete`)
+    values (#{batteryType,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, 
+      #{updateTime,jdbcType=DATE}, #{delete,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="org.example.mi_bms.entity.Battery">
+    update battery
+    set `name` = #{name,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=DATE},
+      update_time = #{updateTime,jdbcType=DATE},
+      `delete` = #{delete,jdbcType=INTEGER}
+    where battery_type = #{batteryType,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select battery_type, `name`, create_time, update_time, `delete`
+    from battery
+    where battery_type = #{batteryType,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select battery_type, `name`, create_time, update_time, `delete`
+    from battery
+  </select>
+</mapper>

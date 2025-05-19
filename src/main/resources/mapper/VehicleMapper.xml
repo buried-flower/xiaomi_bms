@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mi_bms.mapper.VehicleMapper">
+  <resultMap id="BaseResultMap" type="org.example.mi_bms.entity.Vehicle">
+    <id column="vid" jdbcType="CHAR" property="vid" />
+    <result column="carId" jdbcType="INTEGER" property="carid" />
+    <result column="battery_type" jdbcType="INTEGER" property="batteryType" />
+    <result column="total_distance" jdbcType="DOUBLE" property="totalDistance" />
+    <result column="battery_health" jdbcType="INTEGER" property="batteryHealth" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="update_time" jdbcType="DATE" property="updateTime" />
+    <result column="delete" jdbcType="INTEGER" property="delete" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from vehicle
+    where vid = #{vid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="org.example.mi_bms.entity.Vehicle">
+    insert into vehicle (vid, carId, battery_type, 
+      total_distance, battery_health, create_time, 
+      update_time, `delete`)
+    values (#{vid,jdbcType=CHAR}, #{carid,jdbcType=INTEGER}, #{batteryType,jdbcType=INTEGER}, 
+      #{totalDistance,jdbcType=DOUBLE}, #{batteryHealth,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, 
+      #{updateTime,jdbcType=DATE}, #{delete,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="org.example.mi_bms.entity.Vehicle">
+    update vehicle
+    set carId = #{carid,jdbcType=INTEGER},
+      battery_type = #{batteryType,jdbcType=INTEGER},
+      total_distance = #{totalDistance,jdbcType=DOUBLE},
+      battery_health = #{batteryHealth,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=DATE},
+      update_time = #{updateTime,jdbcType=DATE},
+      `delete` = #{delete,jdbcType=INTEGER}
+    where vid = #{vid,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select vid, carId, battery_type, total_distance, battery_health, create_time, update_time, 
+    `delete`
+    from vehicle
+    where vid = #{vid,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select vid, carId, battery_type, total_distance, battery_health, create_time, update_time, 
+    `delete`
+    from vehicle
+  </select>
+  <select id="selectByCarId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select vid, carId, battery_type, total_distance, battery_health, create_time, update_time,
+    `delete`
+    from vehicle
+    where carId = #{carId,jdbcType=INTEGER}
+  </select>
+</mapper>

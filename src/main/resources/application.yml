@@ -1,0 +1,45 @@
+#设置端口号为8888
+server:
+  port: 8888
+  servlet:
+    context-path: /api
+
+#增加数据库连接
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mi_bms?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: root
+    password: hzt6613133
+#redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+
+#rocketmq配置
+rocketmq:
+  enabled: true  # 设置为true时，应用启动会尝试连接RocketMQ
+  name-server: localhost:9876
+  producer:
+    group: battery-producer-group
+    send-message-timeout: 3000
+    retry-times-when-send-failed: 3
+    retry-times-when-send-async-failed: 3
+
+#mybatis位置配置
+mybatis:
+  mapper-locations:  classpath:mapper/**/*.xml
+
+# 日志配置
+logging:
+  config: classpath:logconfig/logback-spring.xml
+  level:
+    org.example.mi_bms.mq: DEBUG  # 设置MQ包的日志级别为DEBUG
+
